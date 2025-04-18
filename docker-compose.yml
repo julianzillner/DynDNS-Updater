@@ -5,5 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      URL: ${URL}
     container_name: dyn-dns-service
     restart: unless-stopped

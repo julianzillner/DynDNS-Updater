@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/julianzillner/DynDNS/request"
@@ -9,7 +10,7 @@ import (
 
 
 func main() {
-	var url = "https://julianzillner.com"
+	var url = os.Getenv("URL")
 	var interval int = 1
 
 
