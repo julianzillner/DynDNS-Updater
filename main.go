@@ -1,36 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"io"
-	"net/http"
 	"os"
+	"strconv"
 	"time"
 
-	"github.com/joho/godotenv"
 	"github.com/julianzillner/DynDNS/request"
 )
 
-func getRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got / request\n")
-	io.WriteString(w, "This is my website!\n")
-}
-func getHello(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got /hello request\n")
-	io.WriteString(w, "Hello, HTTP!\n")
-}
 
 
 func main() {
-	godotenv.Load()
 	var url = os.Getenv("URL")
 	intervalStr := os.Getenv("INTERVAL")
-	interval, err := time.ParseDuration(intervalStr)
+	interval, err := strconv.Atoi(intervalStr)
 	if err != nil {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
 
-	ticker := time.NewTicker(interval)
+	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 
 
 	for {
