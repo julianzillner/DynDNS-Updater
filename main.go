@@ -1,7 +1,6 @@
 package main
 
 import (
-	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -12,8 +11,6 @@ import (
 	"github.com/mattn/go-colorable"
 )
 
-
-
 func main() {
 	var url = os.Getenv("URL")
 	intervalStr := os.Getenv("INTERVAL")
@@ -22,13 +19,8 @@ func main() {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
 
-	    go func() {
-        http.HandleFunc("/health", endpoints.GetHealth)
-		http.HandleFunc("/currentIP", endpoints.GetIpAdress)
-        err := http.ListenAndServe(":3333", nil)
-        if err != nil {
-            panic("Failed to start HTTP server: " + err.Error())
-        }
+	go func() {
+		endpoints.Initialize()
     }()
 
 

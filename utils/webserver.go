@@ -11,6 +11,19 @@ type ipResponse struct {
 	Ip string `json:"ip"`
 }
 
+func Initialize() {
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/", http.StripPrefix("/", fs))
+
+
+  	http.HandleFunc("/health", GetHealth)
+	http.HandleFunc("/currentIP", GetIpAdress)
+    err := http.ListenAndServe(":3333", nil)
+    if err != nil {
+        panic("Failed to start HTTP server: " + err.Error())
+    }
+}
+
 func GetHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	io.WriteString(w, "Healthy\n")
