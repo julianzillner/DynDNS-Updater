@@ -38,6 +38,7 @@ func main() {
 
 func init() {
 	templ := `{{ .Title "DynDNS Updater" "" 2 }}
+   Developer: Julian Zillner 
    GoVersion: {{ .GoVersion }}
    GOOS: {{ .GOOS }}
    GOARCH: {{ .GOARCH }}
