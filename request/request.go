@@ -3,8 +3,6 @@ package request
 import (
 	"log"
 	"net/http"
-
-	"github.com/fatih/color"
 )
 
 
@@ -25,5 +23,4 @@ func Call(url string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	color.Green("Request successful")
 }

@@ -16,3 +16,4 @@ docker-compose up -d
 ````
 
 The service will send an update request to the specified URL at the defined interval.
+

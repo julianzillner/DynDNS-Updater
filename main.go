@@ -5,10 +5,11 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/dimiro1/banner"
 	"github.com/julianzillner/DynDNS/request"
+	endpoints "github.com/julianzillner/DynDNS/utils"
+	"github.com/mattn/go-colorable"
 )
-
-
 
 func main() {
 	var url = os.Getenv("URL")
@@ -17,6 +18,11 @@ func main() {
 	if err != nil {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
+
+	go func() {
+		endpoints.Initialize()
+    }()
+
 
 	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 
@@ -27,4 +33,20 @@ func main() {
 			request.Call(url)
 		}
 	}
+}
+
+
+func init() {
+	templ := `{{ .Title "DynDNS Updater" "" 2 }}
+   Developer: Julian Zillner 
+   GoVersion: {{ .GoVersion }}
+   GOOS: {{ .GOOS }}
+   GOARCH: {{ .GOARCH }}
+   NumCPU: {{ .NumCPU }}
+   GOROOT: {{ .GOROOT }}
+   Compiler: {{ .Compiler }}
+   Now: {{ .Now "Monday, 2 Jan 2006" }}
+
+`
+	banner.InitString(colorable.NewColorableStdout(), true, true, templ)
 }
