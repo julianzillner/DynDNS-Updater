@@ -5,9 +5,9 @@ FROM golang:1.22.2 AS builder
 
 WORKDIR /app
 
-# Caching: Nur die Mod-Dateien zuerst kopieren
+# Nur die Mod-Dateien kopieren, um Caching zu nutzen
 COPY go.mod go.sum ./
-RUN go version && go mod download
+RUN go mod download
 
 # Restlichen Code kopieren
 COPY . .
