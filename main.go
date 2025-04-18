@@ -1,11 +1,13 @@
 package main
 
 import (
+	"net/http"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/julianzillner/DynDNS/request"
+	"github.com/julianzillner/DynDNS/utils"
 )
 
 
@@ -17,6 +19,15 @@ func main() {
 	if err != nil {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
+
+	    go func() {
+        http.HandleFunc("/health", utils.GetHealth)
+        err := http.ListenAndServe(":3333", nil)
+        if err != nil {
+            panic("Failed to start HTTP server: " + err.Error())
+        }
+    }()
+
 
 	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 
