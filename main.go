@@ -39,8 +39,4 @@ func main() {
 			request.Call(url)
 		}
 	}
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", getHello)
-
-	http.ListenAndServe(":3333", nil)
 }
