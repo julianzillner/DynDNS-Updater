@@ -1,28 +1,33 @@
 # syntax=docker/dockerfile:1.3
 
-# --- STAGE 1: Build ---
+# --- Build Stage ---
 FROM golang:1.21 AS builder
 
+# Setze Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Nur go.mod und go.sum für Caching
+# Nur Mod-Dateien zuerst kopieren für Caching
 COPY go.mod go.sum ./
+
+# Module herunterladen (nutzt Cache falls nichts geändert wurde)
 RUN go mod download
 
-# Rest des Codes kopieren und bauen
+# Restlichen Code kopieren
 COPY . .
+
+# Go-Projekt bauen
 RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
-# --- STAGE 2: Run ---
+# --- Laufzeit Stage (kleines Image) ---
 FROM alpine:latest
 
 WORKDIR /app
 
-# Zertifikate für HTTPS-Verbindungen
+# Benötigte Zertifikate für HTTPS, etc.
 RUN apk --no-cache add ca-certificates
 
-# Binary vom Builder übernehmen
+# Binary aus dem Builder-Stage übernehmen
 COPY --from=builder /app/main .
 
-# Standard-Ausführung
+# Startbefehl
 CMD ["./main"]
