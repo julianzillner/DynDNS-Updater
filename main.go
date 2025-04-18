@@ -7,9 +7,13 @@ import (
 )
 
 
+
 func main() {
 	var url = "https://julianzillner.com"
-	ticker := time.NewTicker(20 * time.Second)
+	var interval int = 1
+
+
+	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 
 
 	for {
