@@ -22,6 +22,7 @@ func main() {
 
 	    go func() {
         http.HandleFunc("/health", endpoints.GetHealth)
+		http.HandleFunc("/currentIP", endpoints.GetIpAdress)
         err := http.ListenAndServe(":3333", nil)
         if err != nil {
             panic("Failed to start HTTP server: " + err.Error())
