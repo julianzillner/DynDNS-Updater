@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/julianzillner/DynDNS/request"
@@ -11,8 +12,11 @@ import (
 
 func main() {
 	var url = os.Getenv("URL")
-	var interval int = 1
-
+	intervalStr := os.Getenv("INTERVAL")
+	interval, err := strconv.Atoi(intervalStr)
+	if err != nil {
+		panic("Invalid INTERVAL value: " + err.Error())
+	}
 
 	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 

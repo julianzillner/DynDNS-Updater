@@ -7,5 +7,6 @@ services:
       dockerfile: Dockerfile
     environment:
       URL: ${URL}
+      INTERVAL: ${INTERVAL}
     container_name: dyn-dns-service
     restart: unless-stopped
