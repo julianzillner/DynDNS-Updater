@@ -21,10 +21,9 @@ func Call(url string) {
 		log.Fatalf("status code error: %d %s", resp.StatusCode, resp.Status)
 	}
 
-	//data, err := ioutil.ReadAll(resp.Body)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	color.Green("Request successful")
-	//fmt.Println(string(data))
 }
