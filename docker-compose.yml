@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
-    container_name: go-app
-    restart: unless-stopped
-    volumes:
-      - ./:/app
+  go-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - GOPROXY=https://proxy.golang.org,direct
     ports:
       - "8080:8080"
-    environment:
-      - GO_ENV=production
+    volumes:
+      - ./:/app
