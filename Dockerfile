@@ -1,29 +1,12 @@
-# Build-Stage mit notwendigen Tools
-FROM golang:1.21-alpine AS builder
-
-# Git und SSL-Certificates für Module installieren
-RUN apk add --no-cache git ca-certificates
+FROM golang:1.21-alpine
 
 WORKDIR /app
 
-# Kopiere Go Mod-Dateien (vor dem restlichen Code für besseres Caching)
-COPY go.mod go.sum ./
-
-# Downloade Abhängigkeiten (mit Proxy-Fallback)
-RUN go mod download -x || go mod download -x
-
-# Kopiere den gesamten Code
+# Kopiere alle notwendigen Dateien
 COPY . .
 
-# Statisches Binary bauen
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags '-extldflags "-static"' -o /main ./main.go
+# Baue die Anwendung
+RUN go build -o main .
 
-# Final-Stage mit notwendigen Runtime-Dependencies
-FROM alpine:latest
-RUN apk add --no-cache ca-certificates tzdata
-
-WORKDIR /app
-COPY --from=builder /main .
-
-EXPOSE 8080
+# Führe die Anwendung aus
 CMD ["./main"]
