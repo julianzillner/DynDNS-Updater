@@ -1,4 +1,4 @@
-package utils
+package endpoints
 
 import (
 	"io"

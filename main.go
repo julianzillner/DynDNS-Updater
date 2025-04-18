@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/julianzillner/DynDNS/request"
-	"github.com/julianzillner/DynDNS/utils"
+	endpoints "github.com/julianzillner/DynDNS/utils"
 )
 
 
@@ -21,7 +21,7 @@ func main() {
 	}
 
 	    go func() {
-        http.HandleFunc("/health", utils.GetHealth)
+        http.HandleFunc("/health", endpoints.GetHealth)
         err := http.ListenAndServe(":3333", nil)
         if err != nil {
             panic("Failed to start HTTP server: " + err.Error())
