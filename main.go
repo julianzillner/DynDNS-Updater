@@ -1,30 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+	"time"
+
+	"github.com/julianzillner/DynDNS/request"
 )
 
 
 func main() {
-	url := "https://julianzillner.com"
-	resp, err := http.Get(url)
+	var url = "https://julianzillner.com"
+	ticker := time.NewTicker(20 * time.Second)
+	defer ticker.Stop() 
 
-	if err != nil {
-		log.Fatal(err)
+	for {
+		select {
+		case <-ticker.C:
+			request.Call(url)
+		}
 	}
-	defer resp.Body.Close()	
-
-
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("status code error: %d %s", resp.StatusCode, resp.Status)
-	}
-
-	//data, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Request successful")
-	//fmt.Println(string(data))
 }
