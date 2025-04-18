@@ -6,8 +6,10 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/dimiro1/banner"
 	"github.com/julianzillner/DynDNS/request"
 	endpoints "github.com/julianzillner/DynDNS/utils"
+	"github.com/mattn/go-colorable"
 )
 
 
@@ -39,4 +41,19 @@ func main() {
 			request.Call(url)
 		}
 	}
+}
+
+
+func init() {
+	templ := `{{ .Title "DynDNS Updater" "" 2 }}
+   GoVersion: {{ .GoVersion }}
+   GOOS: {{ .GOOS }}
+   GOARCH: {{ .GOARCH }}
+   NumCPU: {{ .NumCPU }}
+   GOROOT: {{ .GOROOT }}
+   Compiler: {{ .Compiler }}
+   Now: {{ .Now "Monday, 2 Jan 2006" }}
+
+`
+	banner.InitString(colorable.NewColorableStdout(), true, true, templ)
 }
