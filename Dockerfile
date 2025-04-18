@@ -1,12 +1,16 @@
-FROM golang:1.21-alpine
+FROM golang:1.21
 
 WORKDIR /app
 
-# Kopiere alle notwendigen Dateien
+# Erst die Mod-Dateien kopieren (für besseres Caching)
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Dann den Rest kopieren
 COPY . .
 
-# Baue die Anwendung
+# Build
 RUN go build -o main .
 
-# Führe die Anwendung aus
+# Ausführung
 CMD ["./main"]
