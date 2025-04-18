@@ -5,8 +5,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
-	"path/filepath"
 )
 
 type ipResponse struct {
@@ -14,10 +12,8 @@ type ipResponse struct {
 }
 
 func Initialize() {
-	
-	staticDir := filepath.Join(getWorkingDir(), "static")
-    fs := http.FileServer(http.Dir(staticDir))
-    http.Handle("/", http.StripPrefix("/", fs))
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/dashboard", http.StripPrefix("/", fs))
 
 
   	http.HandleFunc("/health", GetHealth)
@@ -45,12 +41,4 @@ func GetIpAdress(w http.ResponseWriter, r *http.Request) {
 		 return
 	 }
 	 io.WriteString(w, ipResponse.Ip)
-}
-
-func getWorkingDir() string {
-    dir, err := os.Getwd()
-    if err != nil {
-        panic("Failed to get working directory: " + err.Error())
-    }
-    return dir
 }
