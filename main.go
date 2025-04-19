@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dimiro1/banner"
+	noip "github.com/julianzillner/DynDNS/provider"
 	"github.com/julianzillner/DynDNS/request"
 	endpoints "github.com/julianzillner/DynDNS/utils"
 	"github.com/mattn/go-colorable"
@@ -18,6 +19,8 @@ func main() {
 	if err != nil {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
+
+	noip.Call("julian-zillner", "JulianZillner2006", "max-mustermann.zapto.org")
 
 	go func() {
 		endpoints.Initialize()
