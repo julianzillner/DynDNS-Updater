@@ -15,17 +15,26 @@ import (
 func main() {
 	var url = os.Getenv("URL")
 	intervalStr := os.Getenv("INTERVAL")
+	provider := os.Getenv("PROVIDER")
+
+	var noipUsername = os.Getenv("NOIP_USERNAME")
+	var noipPassword = os.Getenv("NOIP_PASSWORD")
+	var noipHost = os.Getenv("NOIP_HOST")
+
 	interval, err := strconv.Atoi(intervalStr)
 	if err != nil {
 		panic("Invalid INTERVAL value: " + err.Error())
 	}
 
-	noip.Call("julian-zillner", "JulianZillner2006", "max-mustermann.zapto.org")
 
 	go func() {
 		endpoints.Initialize()
-    }()
+		}()
+		
 
+	if provider == "noip" {
+		url = noip.Call(noipUsername, noipPassword, noipHost)
+	}
 
 	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop() 

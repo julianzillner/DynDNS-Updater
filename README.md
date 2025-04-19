@@ -8,6 +8,11 @@ This is a minimalistic DynDNS updater service.
 2. Set the required environment variables:
    - `URL` – The DynDNS update URL.
    - `INTERVAL` – Update interval in seconds (e.g., `300` for 5 minutes).
+   - `PROVIDER` – Empty = default or use 'noip' for NoIP.
+
+   - `NOIP_USERNAME` 
+   - `NOIP_PASSWORD` 
+   - `NOIP_HOST` 
 
 ## 🚀 Deploy with Docker Compose
 

@@ -1,10 +1,9 @@
 package noip
 
-import "fmt"
-
-func Call(username string, password string, hostname string) {
+func Call(username string, password string, hostname string) string {
 	var baseURL = "@dynupdate.no-ip.com/nic/update?hostname="
 
 	var url = "http://" + username +  ":" + password + baseURL + hostname + "&myip=ip"
-	fmt.Println(url)
+	
+	return url
 }
