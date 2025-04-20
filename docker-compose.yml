@@ -10,7 +10,5 @@ services:
       INTERVAL: ${INTERVAL}
     ports: 
       - "3333:3333"
-    volumes:
-      - ./static:/app/static
     container_name: dyn-dns-service
     restart: unless-stopped
