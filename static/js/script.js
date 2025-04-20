@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // /currentIP abfragen
-    fetch("/interval")
+    fetch("/interval/sec")
         .then(response => response.text())
         .then(data => {
             document.getElementById("interval").textContent = data;
