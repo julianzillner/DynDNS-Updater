@@ -37,4 +37,5 @@ func GetIpAdress(w http.ResponseWriter, r *http.Request) {
 		 return
 	 }
 	 io.WriteString(w, ipResponse.Ip)
+	 
 }
