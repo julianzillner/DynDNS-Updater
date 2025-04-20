@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 type ipResponse struct {
@@ -12,6 +13,7 @@ type ipResponse struct {
 }
 
 func Initialize() {
+	http.HandleFunc("/interval", GetInterval)
   	http.HandleFunc("/health", GetHealth)
 	http.HandleFunc("/currentIP", GetIpAdress)
     err := http.ListenAndServe(":3333", nil)
@@ -37,4 +39,12 @@ func GetIpAdress(w http.ResponseWriter, r *http.Request) {
 		 return
 	 }
 	 io.WriteString(w, ipResponse.Ip)
+}
+
+func GetInterval(w http.ResponseWriter, r * http.Request, outputType string) {
+	if outputType == "sec" {
+		w.WriteHeader(http.StatusOK)
+	}
+	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, os.Getenv("INTERVAL"))
 }
