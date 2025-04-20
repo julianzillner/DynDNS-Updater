@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -28,6 +29,8 @@ func main() {
 
 
 	go func() {
+		fileServer := http.FileServer(http.Dir("./static"))
+     	http.Handle("/", fileServer)
 		endpoints.Initialize()
 		}()
 		
