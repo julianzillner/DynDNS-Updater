@@ -12,7 +12,7 @@ type ipResponse struct {
 }
 
 func Initialize() {
-	fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.Dir("/app/static"))
 	http.Handle("/", fs)
 
   	http.HandleFunc("/health", GetHealth)
