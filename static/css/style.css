@@ -1,0 +1,25 @@
+body {
+    background-color: #181818 !important;
+    color: white !important;
+}
+
+.header {
+    background-color: black !important;
+    margin-bottom: 25px;
+}
+
+.header a {
+    color: white !important;
+}
+
+.content {
+    margin: 5px;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
