@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   // /currentIP abfragen
-  fetch('/currentIP')
+  fetch('/ip')
     .then((response) => response.text())
     .then((data) => {
       document.getElementById('currentIP').textContent = data;

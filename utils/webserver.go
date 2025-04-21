@@ -23,10 +23,11 @@ func Initialize() {
 		GetInterval(w, r, "min")
 	})
 
-
-
   	http.HandleFunc("/health", GetHealth)
-	http.HandleFunc("/currentIP", GetIpAdress)
+
+	http.HandleFunc("/ip", GetIpAdress)
+
+
     err := http.ListenAndServe(":3333", nil)
     if err != nil {
         panic("Failed to start HTTP server: " + err.Error())
